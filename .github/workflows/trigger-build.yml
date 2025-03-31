@@ -1,0 +1,63 @@
+name: Trigger Main Repository Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Installation Token
+        id: get_token
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const app = require('jsonwebtoken');
+            const now = Math.floor(Date.now() / 1000);
+            const payload = {
+              iat: now,
+              exp: now + 600,
+              iss: process.env.GITHUB_APP_ID
+            };
+            const jwt = app.sign(payload, process.env.GITHUB_APP_PRIVATE_KEY, { algorithm: 'RS256' });
+
+            const response = await github.request({
+              method: 'POST',
+              url: `/app/installations/${process.env.INSTALLATION_ID}/access_tokens`,
+              headers: {
+                authorization: `Bearer ${jwt}`,
+                accept: 'application/vnd.github.v3+json'
+              }
+            });
+            core.setOutput('token', response.data.token);
+          env:
+            GITHUB_APP_PRIVATE_KEY: ${{ secrets.GITHUB_APP_PRIVATE_KEY }}
+            GITHUB_APP_ID: ${{ secrets.GITHUB_APP_ID }}
+
+      - name: Create Deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const response = await github.request({
+              method: 'POST',
+              url: `/repos/${process.env.TARGET_REPO}/deployments`,
+              headers: {
+                authorization: `Bearer ${process.env.INSTALLATION_TOKEN}`,
+                accept: 'application/vnd.github.v3+json',
+                'content-type': 'application/json'
+              },
+              data: {
+                ref: 'main',
+                environment: 'production',
+                description: 'Build triggered from organiser repository',
+                auto_merge: true
+              }
+            });
+            if (response.status !== 201) {
+              core.setFailed(`Failed to trigger deployment: ${JSON.stringify(response.data)}`);
+            }
+          env:
+            INSTALLATION_TOKEN: ${{ steps.get_token.outputs.token }}
+            TARGET_REPO: ${{ secrets.TARGET_REPO }} 
