@@ -47,21 +47,21 @@ collections:
       - label: "Event Start"
         name: "eventStart"
         widget: "datetime"
-        hint: "Enter the start date and time of the event. Date required, time optional."
+        hint: "Enter the start date and time of the event. Both time and date are required. Use 00:00 as the time for all day events."
       - label: "Event End"
         name: "eventEnd"
         widget: "datetime"
         required: false
-        hint: "Enter the end date and time of the event. Both time and date are optional."
+        hint: "Enter the end date and time of the event. Both time and date are optional. Use 00:00 as the time for all day events."
       - label: "Venues"
         name: "venues"
         widget: "list"
-        required: false
-        hint: "Enter the venues for this event. Comma seperated, with no spaces. Replace spaces with a dash."
+        required: true
+        hint: "Enter the venues for this event. Comma seperated, with no spaces. Replace spaces with a dash. Use tbc if required."
       - label: "Organisers"
         name: "organisers"
         widget: "list"
-        required: false
+        required: true
         default: ["example"]
         hint: "Enter the organisers for this event. Comma seperated, with no spaces. Replace spaces with a dash."
       - label: "Content"
