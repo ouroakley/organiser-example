@@ -47,10 +47,12 @@ collections:
       - label: "Event Start"
         name: "eventStart"
         widget: "datetime"
+        format: YYYY-MM-DDTHH:mm:ssZ
         hint: "Enter the start date and time of the event. Both time and date are required. Use 00:00 as the time for all day events."
       - label: "Event End"
         name: "eventEnd"
         widget: "datetime"
+        format: YYYY-MM-DDTHH:mm:ssZ
         required: false
         hint: "Enter the end date and time of the event. Both time and date are optional. Use 00:00 as the time for all day events."
       - label: "Venues"
