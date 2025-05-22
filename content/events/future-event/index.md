@@ -2,7 +2,8 @@
 date: 2025-04-01
 draft: true
 title: Future Event
-eventStart: 2999-01-01
+eventSummary: Short summary
+eventStart: 2999-01-01 00:00:00
 venues:
   - example-venue
 organisers:
