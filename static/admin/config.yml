@@ -15,6 +15,8 @@ publish_mode: simple
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
 
+logo_url: https://www.ouroakley.uk/images/logo.png
+
 collections:
   - name: "events"
     label: "Events"
