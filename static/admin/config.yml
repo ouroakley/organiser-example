@@ -41,22 +41,24 @@ collections:
         name: "title"
         widget: "string"
         hint: "Enter the title of the event."
+      - label: "Poster"
+        name: "poster"
+        widget: "image"
+        required: false
+        hint: "Upload a poster image for the event"
       - label: "Event Summary"
         name: "eventSummary"
         widget: "string"
         required: false
         hint: "Enter a short summary of the event. This will be displayed on the event listing page."
-      - label: "Event Start"
-        name: "eventStart"
-        widget: "datetime"
-        format: YYYY-MM-DDTHH:mm:ssZ
-        hint: "Enter the start date and time of the event. Both time and date are required. Use 00:00 as the time for all day events."
-      - label: "Event End"
-        name: "eventEnd"
-        widget: "datetime"
-        format: YYYY-MM-DDTHH:mm:ssZ
+      - label: "Event Dates"
+        name: "eventDates"
+        widget: "list"
         required: false
-        hint: "Enter the end date and time of the event. Both time and date are optional. Use 00:00 as the time for all day events."
+        hint: "Add a single date for a one-day event, or multiple dates for recurring or multi-day events"
+        fields:
+          - {label: "Start Date", name: "start", widget: "datetime", format: YYYY-MM-DDTHH:mm:ssZ}
+          - {label: "End Date", name: "end", widget: "datetime", format: YYYY-MM-DDTHH:mm:ssZ}
       - label: "Venues"
         name: "venues"
         widget: "list"
@@ -72,6 +74,11 @@ collections:
         name: "body"
         widget: "markdown"
         required: false
+      - label: "Aliases"
+        name: "aliases"
+        widget: "list"
+        required: false
+        hint: "Enter any aliases for this event. Comma seperated, with no spaces. Replace spaces with a dash."
 
   - name: "organisers-info"
     label: "Organiser Info"
