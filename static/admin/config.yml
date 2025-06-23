@@ -23,7 +23,7 @@ collections:
     label_singular: "Event"
     folder: "content/events"
     create: true
-    summary: "{{title}} - {{eventStart | date('DD MMM YYYY')}}"
+    summary: "{{title}} - {{date | date('DD MMM YYYY')}}"
     nested:
       depth: 5
       summary: '{{dirname}}'
@@ -41,35 +41,45 @@ collections:
         name: "title"
         widget: "string"
         hint: "Enter the title of the event."
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        required: true
+        hint: "Enter the date to use for the link for the event. This may not be the same as the event date."
+        default: "{{now}}"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
       - label: "Poster"
         name: "poster"
         widget: "image"
         required: false
         hint: "Upload a poster image for the event"
-      - label: "Event Summary"
-        name: "eventSummary"
-        widget: "string"
-        required: false
-        hint: "Enter a short summary of the event. This will be displayed on the event listing page."
       - label: "Event Dates"
         name: "eventDates"
         widget: "list"
         required: false
         hint: "Add a single date for a one-day event, or multiple dates for recurring or multi-day events"
         fields:
-          - {label: "Start Date", name: "start", widget: "datetime", format: YYYY-MM-DDTHH:mm:ssZ}
-          - {label: "End Date", name: "end", widget: "datetime", format: YYYY-MM-DDTHH:mm:ssZ}
+          - label: "Start Date"
+            name: "start"
+            widget: "datetime"
+            format: YYYY-MM-DDTHH:mm:ssZ
+          - label: "End Date"
+            name: "end"
+            widget: "datetime"
+            format: YYYY-MM-DDTHH:mm:ssZ
       - label: "Venues"
         name: "venues"
         widget: "list"
         required: true
-        hint: "Enter the venues for this event. Comma seperated, with no spaces. Replace spaces with a dash. Use tbc if required."
+        hint: "Enter the venues for this event. Comma separated, with no spaces. Replace spaces with a dash. Use tbc if required."
       - label: "Organisers"
         name: "organisers"
         widget: "list"
         required: true
         default: ["example"]
-        hint: "Enter the organisers for this event. Comma seperated, with no spaces. Replace spaces with a dash."
+        hint: "Enter the organisers for this event. Comma separated, with no spaces. Replace spaces with a dash."
       - label: "Content"
         name: "body"
         widget: "markdown"
