@@ -69,6 +69,7 @@ collections:
             name: "end"
             widget: "datetime"
             format: YYYY-MM-DDTHH:mm:ssZ
+            required: false
       - label: "Venues"
         name: "venues"
         widget: "list"
